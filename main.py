@@ -1,18 +1,10 @@
-import requests
-import time
+import telebot
 
-url = "https://api.coinbase.com/v2/prices/BTC-USD/spot"
+TOKEN = "7246698272:AAG5Go4rvJMd9eQ8p_v3ZQGDjrq18DPeTFA"
+bot = telebot.TeleBot(TOKEN)
 
-while True:
-    try:
-        response = requests.get(url)
-        data = response.json()
-        if "data" in data and "amount" in data["data"]:
-            print("سعر البتكوين الحالي بالدولار:", data["data"]["amount"])
-        else:
-            print("😢 السعر على الحصول عذرا")
-    except Exception as e:
-        print("حدث خطأ:", e)
+@bot.message_handler(commands=['start'])
+def start(message):
+    bot.reply_to(message, "مرحباً! البوت يعمل الآن بنجاح 🌸")
 
-    time.sleep(60)
-    
+bot.polling()
